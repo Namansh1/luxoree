@@ -1,3 +1,5 @@
+
+
 export const fragrances = [
   {
     id: 1,
@@ -94,3 +96,4 @@ export const sets = [
     size: "50ml"
   }
 ];
+export const products = fragrances;
