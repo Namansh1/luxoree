@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUXORÉ — Essence of Luxury</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--gold:#C9A84C;--gold-light:#E8C97E;--gold-dark:#8B6914;
+--black:#0A0A0A;--deep:#111111;--surface:#1A1A1A;--surface2:#222222;
+--white:#FAFAF8;--cream:#F5F0E8;--muted:#999;--border:rgba(201,168,76,0.2);
+--font-serif:'Cormorant Garamond',serif;--font-sans:'Jost',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--font-sans);font-weight:300;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.5rem 4rem;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all 0.3s;}
+.nav-logo{font-family:var(--font-serif);font-size:1.8rem;font-weight:300;letter-spacing:0.3em;color:var(--gold);text-decoration:none;font-style:italic;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:rgba(250,250,248,0.7);text-decoration:none;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;transition:color 0.3s;cursor:pointer;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0.6rem 1.5rem;font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.nav-cta:hover{background:var(--gold);color:var(--black);}
+
+/* PAGE SYSTEM */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* ===================== HOME PAGE ===================== */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 50%,rgba(201,168,76,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(139,105,20,0.06) 0%,transparent 50%),var(--black);}
+.hero-bg{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.hero-content{text-align:center;z-index:2;padding:2rem;animation:fadeUp 1.2s ease forwards;}
+.hero-eyebrow{font-family:var(--font-sans);font-size:0.65rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;opacity:0;animation:fadeUp 1s 0.3s ease forwards;}
+.hero-title{font-family:var(--font-serif);font-size:clamp(3.5rem,8vw,7rem);font-weight:300;line-height:1.05;color:var(--white);margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s 0.5s ease forwards;}
+.hero-title em{color:var(--gold);font-style:italic;}
+.hero-sub{font-family:var(--font-sans);font-size:0.85rem;letter-spacing:0.15em;color:var(--muted);margin-bottom:3.5rem;line-height:1.8;max-width:480px;margin-left:auto;margin-right:auto;opacity:0;animation:fadeUp 1s 0.7s ease forwards;}
+.hero-btns{display:flex;gap:1.2rem;justify-content:center;opacity:0;animation:fadeUp 1s 0.9s ease forwards;}
+.btn-gold{background:var(--gold);color:var(--black);border:none;padding:1rem 2.5rem;font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;font-weight:500;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--white);border:1px solid rgba(250,250,248,0.3);padding:1rem 2.5rem;font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+.hero-orb{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(201,168,76,0.12) 0%,transparent 70%);top:50%;right:-10%;transform:translateY(-50%);pointer-events:none;}
+.hero-orb2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(139,105,20,0.1) 0%,transparent 70%);bottom:10%;left:5%;pointer-events:none;}
+
+/* Floating perfume bottles SVG */
+.perfume-hero-visual{position:absolute;right:8%;top:50%;transform:translateY(-50%);opacity:0.15;pointer-events:none;}
+
+/* Scroll indicator */
+.scroll-ind{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:fadeUp 1s 1.2s ease forwards;}
+.scroll-ind span{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s infinite;}
+
+/* SECTIONS */
+section{padding:8rem 4rem;}
+.section-label{font-size:0.6rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:block;}
+.section-title{font-family:var(--font-serif);font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;color:var(--white);margin-bottom:1.5rem;}
+.section-title em{font-style:italic;color:var(--gold);}
+
+/* FEATURED PRODUCTS */
+.featured{background:var(--deep);}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem;}
+.product-card{background:var(--surface);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:all 0.4s;position:relative;group;}
+.product-card:hover{transform:translateY(-8px);border-color:var(--gold);}
+.product-img{height:280px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(201,168,76,0.06) 0%,transparent 70%);position:relative;overflow:hidden;}
+.product-card:hover .product-img{background:radial-gradient(ellipse at center,rgba(201,168,76,0.12) 0%,transparent 70%);}
+.product-info{padding:1.5rem;}
+.product-tag{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.product-name{font-family:var(--font-serif);font-size:1.4rem;font-weight:400;color:var(--white);margin-bottom:0.5rem;}
+.product-desc{font-size:0.78rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;}
+.product-price{font-family:var(--font-serif);font-size:1.2rem;color:var(--gold);}
+.add-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.5rem 1rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;font-family:var(--font-sans);}
+.add-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--black);}
+.badge-new{position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--black);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.3rem 0.7rem;}
+.badge-sold{position:absolute;top:1rem;left:1rem;background:var(--surface2);color:var(--muted);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.3rem 0.7rem;}
+
+/* STORY SECTION */
+.story-section{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.story-visual{position:relative;height:500px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.story-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,0.08) 0%,transparent 70%);}
+.story-text p{font-size:0.9rem;line-height:1.9;color:rgba(250,250,248,0.7);margin-bottom:1.5rem;}
+.story-stat{margin-top:3rem;display:flex;gap:3rem;}
+.stat-item{text-align:center;}
+.stat-num{font-family:var(--font-serif);font-size:2.5rem;font-weight:300;color:var(--gold);display:block;}
+.stat-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;display:block;}
+
+/* TESTIMONIALS */
+.testimonials{background:var(--deep);padding:8rem 4rem;}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem;}
+.testimonial-card{border:1px solid var(--border);padding:2.5rem;background:var(--surface);position:relative;}
+.testimonial-card::before{content:'"';font-family:var(--font-serif);font-size:6rem;color:var(--gold);opacity:0.15;position:absolute;top:-1rem;left:1.5rem;line-height:1;}
+.test-text{font-family:var(--font-serif);font-size:1rem;line-height:1.8;color:rgba(250,250,248,0.8);font-style:italic;margin-bottom:1.5rem;}
+.test-author{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.test-location{font-size:0.65rem;color:var(--muted);margin-top:0.2rem;}
+.stars{color:var(--gold);font-size:0.8rem;margin-bottom:1rem;letter-spacing:0.1em;}
+
+/* NEWSLETTER */
+.newsletter{text-align:center;padding:8rem 4rem;background:radial-gradient(ellipse at center,rgba(201,168,76,0.06) 0%,transparent 70%),var(--black);}
+.newsletter-form{display:flex;gap:0;max-width:500px;margin:3rem auto 0;border:1px solid var(--border);}
+.newsletter-input{flex:1;background:transparent;border:none;padding:1rem 1.5rem;color:var(--white);font-family:var(--font-sans);font-size:0.8rem;outline:none;}
+.newsletter-input::placeholder{color:var(--muted);}
+.newsletter-btn{background:var(--gold);color:var(--black);border:none;padding:1rem 2rem;font-family:var(--font-sans);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:background 0.3s;font-weight:500;}
+.newsletter-btn:hover{background:var(--gold-light);}
+
+/* GALLERY */
+.gallery-section{padding:0 4rem 8rem;}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3rem;}
+.gallery-item{aspect-ratio:1;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:all 0.3s;position:relative;}
+.gallery-item:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto;}
+.gallery-item:hover{border-color:var(--gold);}
+.gallery-item:hover .gallery-overlay{opacity:1;}
+.gallery-overlay{position:absolute;inset:0;background:rgba(201,168,76,0.1);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;}
+.gallery-overlay span{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);}
+
+/* ===================== SHOP PAGE ===================== */
+.shop-hero{padding:12rem 4rem 4rem;text-align:center;}
+.filters-bar{padding:0 4rem 2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);}
+.filter-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-right:0.5rem;}
+.filter-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.5rem 1.2rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;font-family:var(--font-sans);}
+.filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold);}
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;padding:4rem;}
+
+/* QUICK VIEW */
+.quick-view-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2000;align-items:center;justify-content:center;backdrop-filter:blur(10px);}
+.quick-view-overlay.open{display:flex;}
+.quick-view-modal{background:var(--surface);border:1px solid var(--border);max-width:700px;width:90%;display:grid;grid-template-columns:1fr 1fr;max-height:90vh;overflow-y:auto;}
+.qv-img{background:radial-gradient(ellipse at center,rgba(201,168,76,0.08) 0%,transparent 70%),var(--deep);display:flex;align-items:center;justify-content:center;min-height:350px;}
+.qv-info{padding:2.5rem;}
+.qv-close{position:absolute;top:1rem;right:1rem;background:transparent;border:1px solid var(--border);color:var(--muted);width:36px;height:36px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.qv-close:hover{border-color:var(--gold);color:var(--gold);}
+.quick-view-modal{position:relative;}
+
+/* ===================== PRODUCT DETAIL PAGE ===================== */
+.product-detail{padding:10rem 4rem 6rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;}
+.pd-img-main{background:radial-gradient(ellipse at center,rgba(201,168,76,0.1) 0%,transparent 70%),var(--surface);border:1px solid var(--border);height:550px;display:flex;align-items:center;justify-content:center;position:sticky;top:100px;}
+.pd-info{}
+.pd-brand{font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;}
+.pd-name{font-family:var(--font-serif);font-size:3rem;font-weight:300;line-height:1.1;color:var(--white);margin-bottom:0.5rem;}
+.pd-sub{font-family:var(--font-serif);font-size:1.1rem;font-style:italic;color:var(--muted);margin-bottom:1.5rem;}
+.pd-price{font-family:var(--font-serif);font-size:2rem;color:var(--gold);margin-bottom:2rem;}
+.pd-divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+.notes-section{margin-bottom:2rem;}
+.notes-title{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;}
+.note-row{display:flex;align-items:center;gap:1rem;margin-bottom:0.8rem;}
+.note-type{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);width:60px;flex-shrink:0;}
+.note-bar{flex:1;height:1px;background:var(--border);}
+.note-names{font-size:0.78rem;color:rgba(250,250,248,0.7);}
+.size-selector{display:flex;gap:0.8rem;margin-bottom:2rem;}
+.size-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.6rem 1.2rem;font-size:0.7rem;cursor:pointer;transition:all 0.3s;font-family:var(--font-sans);}
+.size-btn.selected,.size-btn:hover{border-color:var(--gold);color:var(--gold);}
+.add-cart-btn{width:100%;background:var(--gold);color:var(--black);border:none;padding:1.2rem;font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;font-weight:500;margin-bottom:1rem;}
+.add-cart-btn:hover{background:var(--gold-light);}
+.wishlist-btn{width:100%;background:transparent;color:var(--muted);border:1px solid var(--border);padding:1rem;font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.wishlist-btn:hover{border-color:var(--gold);color:var(--gold);}
+.reviews-section{padding:4rem;border-top:1px solid var(--border);}
+.review-item{border-bottom:1px solid var(--border);padding:1.5rem 0;}
+.review-name{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);margin-bottom:0.3rem;}
+.review-text{font-family:var(--font-serif);font-size:0.95rem;font-style:italic;color:rgba(250,250,248,0.7);line-height:1.7;}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;padding:4rem;padding-top:2rem;}
+
+/* ===================== ABOUT PAGE ===================== */
+.about-hero{min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:12rem 4rem 6rem;background:radial-gradient(ellipse at center,rgba(201,168,76,0.06) 0%,transparent 70%),var(--black);}
+.about-story{padding:8rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.about-visual{height:400px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.about-visual::after{content:'LUXORÉ';font-family:var(--font-serif);font-size:5rem;font-weight:300;color:rgba(201,168,76,0.08);position:absolute;white-space:nowrap;font-style:italic;}
+.craft-section{padding:8rem 4rem;background:var(--deep);}
+.craft-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;margin-top:4rem;}
+.craft-card{text-align:center;padding:2.5rem;}
+.craft-icon{width:60px;height:60px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
+.craft-title{font-family:var(--font-serif);font-size:1.3rem;margin-bottom:0.8rem;color:var(--white);}
+.craft-text{font-size:0.82rem;line-height:1.8;color:var(--muted);}
+.about-p{font-size:0.9rem;line-height:1.9;color:rgba(250,250,248,0.7);margin-bottom:1.2rem;}
+
+/* ===================== CONTACT PAGE ===================== */
+.contact-layout{padding:10rem 4rem 6rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;}
+.contact-info{}
+.contact-item{margin-bottom:2.5rem;}
+.contact-item-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;}
+.contact-item-val{font-family:var(--font-serif);font-size:1.1rem;color:rgba(250,250,248,0.8);}
+.contact-form{display:flex;flex-direction:column;gap:1.2rem;}
+.form-group{display:flex;flex-direction:column;gap:0.5rem;}
+.form-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);}
+.form-input,.form-textarea{background:var(--surface);border:1px solid var(--border);color:var(--white);padding:1rem 1.2rem;font-family:var(--font-sans);font-size:0.85rem;outline:none;transition:border-color 0.3s;}
+.form-input:focus,.form-textarea:focus{border-color:var(--gold);}
+.form-textarea{height:140px;resize:none;}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--muted);}
+.submit-btn{background:var(--gold);color:var(--black);border:none;padding:1.1rem;font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;font-weight:500;transition:all 0.3s;margin-top:0.5rem;}
+.submit-btn:hover{background:var(--gold-light);}
+
+/* FOOTER */
+footer{background:var(--deep);border-top:1px solid var(--border);padding:4rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;}
+.footer-brand{font-family:var(--font-serif);font-size:1.5rem;font-style:italic;color:var(--gold);letter-spacing:0.2em;margin-bottom:1rem;display:block;}
+.footer-desc{font-size:0.78rem;line-height:1.8;color:var(--muted);}
+.footer-col-title{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:block;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:0.8rem;}
+.footer-links li a{font-size:0.78rem;color:var(--muted);text-decoration:none;cursor:pointer;transition:color 0.3s;}
+.footer-links li a:hover{color:var(--gold);}
+.footer-bottom{padding:1.5rem 4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.footer-bottom p{font-size:0.7rem;color:var(--muted);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes scrollPulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
+
+/* CART NOTIFICATION */
+.cart-notif{position:fixed;bottom:2rem;right:2rem;background:var(--gold);color:var(--black);padding:1rem 1.5rem;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;z-index:3000;transform:translateX(200%);transition:transform 0.4s;font-family:var(--font-sans);font-weight:500;}
+.cart-notif.show{transform:translateX(0);}
+.cart-count{position:absolute;top:-5px;right:-5px;background:var(--gold);color:var(--black);width:18px;height:18px;border-radius:50%;font-size:0.6rem;display:flex;align-items:center;justify-content:center;font-weight:500;}
+
+/* CART ICON */
+.cart-icon{position:relative;cursor:pointer;color:rgba(250,250,248,0.7);font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;transition:color 0.3s;}
+.cart-icon:hover{color:var(--gold);}
+
+/* PERFUME SVG ICONS */
+.bottle-svg{animation:float 4s ease-in-out infinite;}
+.bottle-svg2{animation:float 4s 1s ease-in-out infinite;}
+.bottle-svg3{animation:float 4s 2s ease-in-out infinite;}
+
+/* DIVIDER LINE */
+.gold-line{width:60px;height:1px;background:var(--gold);margin:2rem 0;}
+.gold-line-center{width:60px;height:1px;background:var(--gold);margin:2rem auto;}
+
+/* RESPONSIVE basics */
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  section,.shop-hero,.product-detail,.about-story,.about-hero,.contact-layout{padding:6rem 1.5rem 4rem;}
+  .products-grid,.testimonials-grid,.craft-grid,.related-grid{grid-template-columns:1fr;}
+  .story-section,.about-story,.contact-layout{grid-template-columns:1fr;}
+  .product-detail{grid-template-columns:1fr;}
+  footer{grid-template-columns:1fr;gap:2rem;padding:2rem;}
+  .footer-bottom{flex-direction:column;gap:1rem;text-align:center;padding:1rem 1.5rem;}
+  .shop-grid{grid-template-columns:1fr;padding:2rem 1.5rem;}
+  .filters-bar{padding:0 1.5rem 2rem;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .gallery-item:first-child{grid-column:span 1;grid-row:span 1;}
+  .quick-view-modal{grid-template-columns:1fr;}
+  .reviews-section,.related-grid{padding:2rem 1.5rem;}
+  .hero-orb,.hero-orb2{display:none;}
+}
+
+/* Active nav state per page */
+.wishlist-icon{position:relative;cursor:pointer;color:rgba(250,250,248,0.7);font-size:0.75rem;letter-spacing:0.2em;transition:color 0.3s;margin-right:1rem;}
+.wishlist-icon:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#" onclick="showPage('home')">LUXORÉ</a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('shop')" id="nav-shop">Collection</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">Maison</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <span class="wishlist-icon" onclick="showPage('shop')">♡ Wishlist</span>
+    <span class="cart-icon" onclick="toggleCart()">✦ Cart <span class="cart-count" id="cartCount">0</span></span>
+    <button class="nav-cta" onclick="showPage('shop')">Shop Now</button>
+  </div>
+</nav>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div class="page active" id="page-home">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-orb"></div>
+    <div class="hero-orb2"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Maison de Parfum — Est. 2026</span>
+      <h1 class="hero-title">Experience the<br><em>Essence</em> of Luxury</h1>
+      <p class="hero-sub">Each bottle holds a universe. Rare ingredients from the corners of the world, crafted into a signature you carry forever.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="showPage('shop')">Explore Collection</button>
+        <button class="btn-outline" onclick="showPage('about')">Our Story</button>
+      </div>
+    </div>
+    <!-- Floating bottles visual -->
+    <svg class="perfume-hero-visual" width="340" height="520" viewBox="0 0 340 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Bottle 1 large center -->
+      <g class="bottle-svg" transform="translate(100,60)">
+        <rect x="30" y="0" width="80" height="10" rx="5" fill="#C9A84C" opacity="0.6"/>
+        <rect x="40" y="10" width="60" height="25" rx="8" fill="#C9A84C" opacity="0.4"/>
+        <rect x="20" y="35" width="100" height="200" rx="6" fill="#C9A84C" opacity="0.15"/>
+        <rect x="22" y="37" width="96" height="196" rx="5" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.3"/>
+        <text x="70" y="140" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="14" fill="#C9A84C" opacity="0.7" font-style="italic">LUXORÉ</text>
+        <text x="70" y="158" text-anchor="middle" font-family="'Jost',sans-serif" font-size="7" fill="#C9A84C" opacity="0.4" letter-spacing="3">NOIR</text>
+        <rect x="35" y="235" width="70" height="8" rx="0" fill="#C9A84C" opacity="0.2"/>
+        <rect x="20" y="243" width="100" height="30" rx="3" fill="#C9A84C" opacity="0.1"/>
+      </g>
+      <!-- Bottle 2 right -->
+      <g class="bottle-svg2" transform="translate(220,120)">
+        <rect x="20" y="0" width="50" height="8" rx="4" fill="#C9A84C" opacity="0.5"/>
+        <rect x="26" y="8" width="38" height="18" rx="6" fill="#C9A84C" opacity="0.3"/>
+        <rect x="10" y="26" width="70" height="150" rx="35" fill="#C9A84C" opacity="0.1"/>
+        <rect x="12" y="28" width="66" height="146" rx="33" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.3"/>
+        <text x="45" y="108" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="10" fill="#C9A84C" opacity="0.6" font-style="italic">L</text>
+        <rect x="20" y="176" width="50" height="20" rx="2" fill="#C9A84C" opacity="0.08"/>
+      </g>
+      <!-- Bottle 3 left small -->
+      <g class="bottle-svg3" transform="translate(30,160)">
+        <rect x="18" y="0" width="44" height="7" rx="3" fill="#C9A84C" opacity="0.4"/>
+        <rect x="24" y="7" width="32" height="15" rx="5" fill="#C9A84C" opacity="0.25"/>
+        <rect x="8" y="22" width="64" height="120" rx="4" fill="#C9A84C" opacity="0.08"/>
+        <rect x="9" y="23" width="62" height="118" rx="3" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.25"/>
+        <text x="40" y="85" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="9" fill="#C9A84C" opacity="0.5" font-style="italic">OR</text>
+        <rect x="15" y="142" width="50" height="16" rx="2" fill="#C9A84C" opacity="0.06"/>
+      </g>
+    </svg>
+    <div class="scroll-ind">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="featured">
+    <div>
+      <span class="section-label">Curated Selections</span>
+      <h2 class="section-title">Signature <em>Fragrances</em></h2>
+      <div class="gold-line"></div>
+      <p style="font-size:0.85rem;color:var(--muted);max-width:500px;line-height:1.8;">Each fragrance is a journey. A memory. An emotion captured in glass and gold.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card" onclick="showProductDetail(0)">
+        <div class="badge-new">New</div>
+        <div class="product-img">
+          <svg width="90" height="200" viewBox="0 0 90 200" class="bottle-svg">
+            <rect x="30" y="0" width="30" height="8" rx="4" fill="#C9A84C" opacity="0.7"/>
+            <rect x="24" y="8" width="42" height="18" rx="8" fill="#C9A84C" opacity="0.4"/>
+            <rect x="5" y="26" width="80" height="145" rx="5" fill="#C9A84C" opacity="0.12"/>
+            <rect x="6" y="27" width="78" height="143" rx="4" fill="none" stroke="#C9A84C" stroke-width="1.5" opacity="0.4"/>
+            <text x="45" y="100" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="11" fill="#C9A84C" font-style="italic">NOIR</text>
+            <text x="45" y="115" text-anchor="middle" font-family="'Jost',sans-serif" font-size="6" fill="#C9A84C" opacity="0.5" letter-spacing="2">LUXORÉ</text>
+            <rect x="12" y="171" width="66" height="6" rx="0" fill="#C9A84C" opacity="0.2"/>
+            <rect x="5" y="177" width="80" height="23" rx="3" fill="#C9A84C" opacity="0.07"/>
+          </svg>
+        </div>
+        <div class="product-info">
+          <div class="product-tag">Eau de Parfum</div>
+          <div class="product-name">Noir Absolu</div>
+          <div class="product-desc">Dark woods, black amber & smoky vetiver. An enigmatic nocturnal journey.</div>
+          <div class="product-footer">
+            <span class="product-price">₹8,500</span>
+            <button class="add-btn" onclick="event.stopPropagation();addToCart('Noir Absolu')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" onclick="showProductDetail(1)">
+        <div class="product-img">
+          <svg width="80" height="190" viewBox="0 0 80 190" class="bottle-svg2">
+            <rect x="25" y="0" width="30" height="7" rx="3" fill="#C9A84C" opacity="0.6"/>
+            <rect x="20" y="7" width="40" height="16" rx="6" fill="#C9A84C" opacity="0.35"/>
+            <rect x="2" y="23" width="76" height="140" rx="38" fill="#C9A84C" opacity="0.1"/>
+            <rect x="3" y="24" width="74" height="138" rx="37" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.35"/>
+            <text x="40" y="96" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="10" fill="#C9A84C" font-style="italic">ROSE</text>
+            <text x="40" y="110" text-anchor="middle" font-family="'Jost',sans-serif" font-size="5" fill="#C9A84C" opacity="0.4" letter-spacing="2">LUXORÉ</text>
+            <rect x="10" y="163" width="60" height="20" rx="2" fill="#C9A84C" opacity="0.07"/>
+          </svg>
+        </div>
+        <div class="product-info">
+          <div class="product-tag">Eau de Parfum</div>
+          <div class="product-name">Rose Éternelle</div>
+          <div class="product-desc">Damask rose, ylang ylang & musk. The romance of an eternal bloom.</div>
+          <div class="product-footer">
+            <span class="product-price">₹9,200</span>
+            <button class="add-btn" onclick="event.stopPropagation();addToCart('Rose Éternelle')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" onclick="showProductDetail(2)">
+        <div class="badge-sold">Bestseller</div>
+        <div class="product-img">
+          <svg width="70" height="185" viewBox="0 0 70 185" class="bottle-svg3">
+            <rect x="22" y="0" width="26" height="6" rx="3" fill="#C9A84C" opacity="0.65"/>
+            <rect x="17" y="6" width="36" height="14" rx="5" fill="#C9A84C" opacity="0.35"/>
+            <rect x="2" y="20" width="66" height="135" rx="4" fill="#C9A84C" opacity="0.11"/>
+            <rect x="3" y="21" width="64" height="133" rx="3" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.38"/>
+            <text x="35" y="90" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="10" fill="#C9A84C" font-style="italic">OUD</text>
+            <text x="35" y="104" text-anchor="middle" font-family="'Jost',sans-serif" font-size="5" fill="#C9A84C" opacity="0.4" letter-spacing="2">LUXORÉ</text>
+            <rect x="8" y="155" width="54" height="22" rx="2" fill="#C9A84C" opacity="0.07"/>
+          </svg>
+        </div>
+        <div class="product-info">
+          <div class="product-tag">Extrait de Parfum</div>
+          <div class="product-name">Oud Impérial</div>
+          <div class="product-desc">Royal oud, saffron & sandalwood. Majesty distilled into a single breath.</div>
+          <div class="product-footer">
+            <span class="product-price">₹14,000</span>
+            <button class="add-btn" onclick="event.stopPropagation();addToCart('Oud Impérial')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3rem;">
+      <button class="btn-outline" onclick="showPage('shop')">View Full Collection →</button>
+    </div>
+  </section>
+
+  <!-- BRAND STORY -->
+  <section style="padding:8rem 4rem;background:var(--black);">
+    <div class="story-section">
+      <div class="story-visual">
+        <svg width="200" height="300" viewBox="0 0 200 300" fill="none">
+          <text x="100" y="160" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="72" fill="#C9A84C" opacity="0.08" font-style="italic">L</text>
+          <circle cx="100" cy="150" r="80" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+          <circle cx="100" cy="150" r="60" stroke="#C9A84C" stroke-width="0.3" opacity="0.15"/>
+          <line x1="20" y1="150" x2="180" y2="150" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+          <line x1="100" y1="30" x2="100" y2="270" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+          <text x="100" y="145" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="28" fill="#C9A84C" opacity="0.6" font-style="italic">LUXORÉ</text>
+          <text x="100" y="165" text-anchor="middle" font-family="'Jost',sans-serif" font-size="7" fill="#C9A84C" opacity="0.35" letter-spacing="4">MAISON DE PARFUM</text>
+        </svg>
+      </div>
+      <div class="story-text">
+        <span class="section-label">Our Heritage</span>
+        <h2 class="section-title">Born from the<br><em>Art of Perfumery</em></h2>
+        <div class="gold-line"></div>
+        <p>LUXORÉ was founded on a singular belief: that fragrance is the most intimate form of luxury. Not something you wear — something you become.</p>
+        <p>Every bottle begins in Grasse, France, where our master perfumers spend years learning the language of flowers, resins, and woods. We source only what nature's finest terroirs provide.</p>
+        <p>The result is not just a scent. It is a signature. Yours.</p>
+        <div class="story-stat">
+          <div class="stat-item"><span class="stat-num">14</span><span class="stat-label">Years</span></div>
+          <div class="stat-item"><span class="stat-num">48</span><span class="stat-label">Fragrances</span></div>
+          <div class="stat-item"><span class="stat-num">30+</span><span class="stat-label">Countries</span></div>
+        </div>
+        <button class="btn-outline" style="margin-top:2rem;" onclick="showPage('about')">Our Full Story →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div style="text-align:center;">
+      <span class="section-label">Connoisseurs Speak</span>
+      <h2 class="section-title">Worn by the <em>Discerning</em></h2>
+      <div class="gold-line-center"></div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="test-text">Noir Absolu is unlike anything I have ever worn. It commands presence without demanding attention. The definition of sophisticated.</p>
+        <div class="test-author">Arjun Mehta</div>
+        <div class="test-location">Mumbai, India</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="test-text">I gifted Rose Éternelle to my partner and she has not stopped wearing it. It is romantic without being obvious — a rare quality.</p>
+        <div class="test-author">Isabelle Fontaine</div>
+        <div class="test-location">Paris, France</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="test-text">Oud Impérial is a masterpiece. The longevity is extraordinary — I still catch whispers of it the morning after. Truly royal.</p>
+        <div class="test-author">Sheikh Omar Al-Rashid</div>
+        <div class="test-location">Dubai, UAE</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <span class="section-label">Visual Diary</span>
+    <h2 class="section-title">The World of <em>LUXORÉ</em></h2>
+    <div class="gallery-grid">
+      <div class="gallery-item" style="background:radial-gradient(ellipse at 30% 70%,rgba(201,168,76,0.15) 0%,var(--surface) 70%);">
+        <div class="gallery-overlay"><span>Noir Absolu</span></div>
+        <svg width="100" height="180" viewBox="0 0 100 180"><rect x="30" y="0" width="40" height="8" rx="4" fill="#C9A84C" opacity="0.5"/><rect x="20" y="8" width="60" height="20" rx="8" fill="#C9A84C" opacity="0.3"/><rect x="5" y="28" width="90" height="130" rx="6" fill="#C9A84C" opacity="0.12"/><rect x="6" y="29" width="88" height="128" rx="5" fill="none" stroke="#C9A84C" stroke-width="1.5" opacity="0.3"/><text x="50" y="95" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="13" fill="#C9A84C" opacity="0.7" font-style="italic">NOIR</text></svg>
+      </div>
+      <div class="gallery-item" style="background:radial-gradient(ellipse at 60% 40%,rgba(201,168,76,0.1) 0%,var(--surface) 70%);">
+        <div class="gallery-overlay"><span>Craftsmanship</span></div>
+        <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="35" stroke="#C9A84C" stroke-width="0.8" opacity="0.3" fill="none"/><circle cx="40" cy="40" r="25" stroke="#C9A84C" stroke-width="0.5" opacity="0.2" fill="none"/><text x="40" y="45" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="18" fill="#C9A84C" opacity="0.4" font-style="italic">L</text></svg>
+      </div>
+      <div class="gallery-item" style="background:radial-gradient(ellipse at 40% 60%,rgba(201,168,76,0.08) 0%,var(--surface2) 70%);">
+        <div class="gallery-overlay"><span>Rose Éternelle</span></div>
+        <svg width="60" height="60" viewBox="0 0 60 60"><text x="30" y="40" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="36" fill="#C9A84C" opacity="0.25" font-style="italic">♠</text></svg>
+      </div>
+      <div class="gallery-item" style="background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,0.12) 0%,var(--surface) 70%);">
+        <div class="gallery-overlay"><span>Oud Impérial</span></div>
+        <svg width="70" height="120" viewBox="0 0 70 120"><rect x="22" y="0" width="26" height="6" rx="3" fill="#C9A84C" opacity="0.6"/><rect x="16" y="6" width="38" height="14" rx="5" fill="#C9A84C" opacity="0.35"/><rect x="2" y="20" width="66" height="90" rx="4" fill="#C9A84C" opacity="0.1"/><rect x="3" y="21" width="64" height="88" rx="3" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.35"/><text x="35" y="68" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="9" fill="#C9A84C" font-style="italic">OUD</text></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <span class="section-label">Join the Maison</span>
+    <h2 class="section-title">Receive Notes of <em>Elegance</em></h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-top:1rem;">Early access to new releases, exclusive stories & bespoke offers.</p>
+    <div class="newsletter-form">
+      <input class="newsletter-input" type="email" placeholder="Your email address" id="emailInput">
+      <button class="newsletter-btn" onclick="subscribeNewsletter()">Subscribe</button>
+    </div>
+    <p style="color:var(--muted);font-size:0.65rem;margin-top:1.5rem;letter-spacing:0.1em;">By subscribing, you agree to our privacy policy. Unsubscribe anytime.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <span class="footer-brand">LUXORÉ</span>
+      <p class="footer-desc">A maison dedicated to the art of rare fragrance. Each creation is an ode to craftsmanship, nature, and the invisible art of scent.</p>
+    </div>
+    <div>
+      <span class="footer-col-title">Collection</span>
+      <ul class="footer-links">
+        <li><a onclick="showPage('shop')">All Fragrances</a></li>
+        <li><a onclick="showPage('shop')">Eau de Parfum</a></li>
+        <li><a onclick="showPage('shop')">Extrait</a></li>
+        <li><a onclick="showPage('shop')">Gift Sets</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-title">Maison</span>
+      <ul class="footer-links">
+        <li><a onclick="showPage('about')">Our Story</a></li>
+        <li><a onclick="showPage('about')">Craftsmanship</a></li>
+        <li><a onclick="showPage('about')">Sustainability</a></li>
+        <li><a onclick="showPage('contact')">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-title">Service</span>
+      <ul class="footer-links">
+        <li><a>Shipping & Returns</a></li>
+        <li><a>Bespoke Orders</a></li>
+        <li><a>Privacy Policy</a></li>
+        <li><a>Terms</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>© 2026 LUXORÉ Maison de Parfum. All rights reserved.</p>
+    <p style="color:var(--gold);font-size:0.65rem;letter-spacing:0.2em;">CRAFTED IN INDIA· DELIVERED WORLDWIDE</p>
+  </div>
+</div>
+
+<!-- ==================== SHOP PAGE ==================== -->
+<div class="page" id="page-shop">
+  <div class="shop-hero">
+    <span class="section-label">Our Universe</span>
+    <h1 class="section-title">The <em>Collection</em></h1>
+    <div class="gold-line-center"></div>
+    <p style="color:var(--muted);font-size:0.85rem;max-width:500px;margin:0 auto;line-height:1.8;">Six unique compositions. Each born from a different emotion, a different memory, a different world.</p>
+  </div>
+  <div class="filters-bar">
+    <span class="filter-label">Filter by:</span>
+    <button class="filter-btn active" onclick="filterProducts(this,'all')">All</button>
+    <button class="filter-btn" onclick="filterProducts(this,'edp')">Eau de Parfum</button>
+    <button class="filter-btn" onclick="filterProducts(this,'extrait')">Extrait</button>
+    <button class="filter-btn" onclick="filterProducts(this,'floral')">Floral</button>
+    <button class="filter-btn" onclick="filterProducts(this,'woody')">Woody</button>
+    <button class="filter-btn" onclick="filterProducts(this,'oriental')">Oriental</button>
+    <span style="margin-left:auto;font-size:0.65rem;letter-spacing:0.2em;color:var(--muted);">12 PRODUCTS</span>
+  </div>
+  <div class="shop-grid" id="shopGrid">
+    <!-- Products rendered by JS -->
+  </div>
+
+  <!-- QUICK VIEW MODAL -->
+  <div class="quick-view-overlay" id="quickViewOverlay">
+    <div class="quick-view-modal" id="quickViewModal">
+      <div class="qv-img" id="qvImg"></div>
+      <div class="qv-info">
+        <button class="qv-close" onclick="closeQuickView()">✕</button>
+        <span style="font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.8rem;" id="qvTag"></span>
+        <h2 style="font-family:var(--font-serif);font-size:2rem;font-weight:300;color:var(--white);margin-bottom:0.5rem;" id="qvName"></h2>
+        <p style="font-family:var(--font-serif);font-style:italic;color:var(--muted);margin-bottom:1rem;" id="qvSub"></p>
+        <p style="font-size:0.82rem;line-height:1.8;color:rgba(250,250,248,0.7);margin-bottom:1.5rem;" id="qvDesc"></p>
+        <div style="font-family:var(--font-serif);font-size:1.5rem;color:var(--gold);margin-bottom:1.5rem;" id="qvPrice"></div>
+        <button class="add-cart-btn" id="qvAddBtn">Add to Cart</button>
+        <button class="btn-outline" style="width:100%;margin-top:0.8rem;" onclick="viewFullProduct()">View Full Details</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div><span class="footer-brand">LUXORÉ</span><p class="footer-desc">A maison dedicated to the art of rare fragrance.</p></div>
+    <div><span class="footer-col-title">Navigation</span><ul class="footer-links"><li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('about')">Our Story</a></li><li><a onclick="showPage('contact')">Contact</a></li></ul></div>
+    <div></div><div></div>
+  </footer>
+  <div class="footer-bottom"><p>© 2026 LUXORÉ. All rights reserved.</p></div>
+</div>
+
+<!-- ==================== PRODUCT DETAIL PAGE ==================== -->
+<div class="page" id="page-product">
+  <div class="product-detail">
+    <div class="pd-img-main" id="pdImg"></div>
+    <div class="pd-info">
+      <span class="pd-brand">LUXORÉ — Maison de Parfum</span>
+      <h1 class="pd-name" id="pdName"></h1>
+      <p class="pd-sub" id="pdSub"></p>
+      <div class="pd-price" id="pdPrice"></div>
+      <hr class="pd-divider">
+      <p style="font-size:0.82rem;line-height:1.9;color:rgba(250,250,248,0.7);margin-bottom:1.5rem;" id="pdDesc"></p>
+      <div class="notes-section">
+        <span class="notes-title">Fragrance Notes</span>
+        <div class="note-row"><span class="note-type">Top</span><div class="note-bar"></div><span class="note-names" id="pdTop"></span></div>
+        <div class="note-row"><span class="note-type">Heart</span><div class="note-bar"></div><span class="note-names" id="pdHeart"></span></div>
+        <div class="note-row"><span class="note-type">Base</span><div class="note-bar"></div><span class="note-names" id="pdBase"></span></div>
+      </div>
+      <hr class="pd-divider">
+      <span style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.8rem;">Select Size</span>
+      <div class="size-selector">
+        <button class="size-btn selected">30ml</button>
+        <button class="size-btn" onclick="selectSize(this)">50ml</button>
+        <button class="size-btn" onclick="selectSize(this)">100ml</button>
+      </div>
+      <button class="add-cart-btn" id="pdAddBtn">Add to Cart</button>
+      <button class="wishlist-btn">♡ &nbsp; Save to Wishlist</button>
+      <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+        <div style="display:flex;gap:2rem;">
+          <div style="text-align:center;"><span style="font-size:1.5rem;color:var(--gold);display:block;">✦</span><span style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Free Shipping</span></div>
+          <div style="text-align:center;"><span style="font-size:1.5rem;color:var(--gold);display:block;">◈</span><span style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Authentic</span></div>
+          <div style="text-align:center;"><span style="font-size:1.5rem;color:var(--gold);display:block;">◇</span><span style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Gift Wrapped</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Reviews -->
+  <div class="reviews-section">
+    <span class="section-label">What They Say</span>
+    <h2 style="font-family:var(--font-serif);font-size:2rem;font-weight:300;color:var(--white);margin-bottom:2rem;">Customer <em style="color:var(--gold);font-style:italic;">Reviews</em></h2>
+    <div class="review-item"><div class="stars">★★★★★</div><div class="review-name">Priya S. — New Delhi</div><p class="review-text">This fragrance has completely changed my idea of what a luxury scent can be. The projection, the longevity, the sillage — everything is extraordinary.</p></div>
+    <div class="review-item"><div class="stars">★★★★★</div><div class="review-name">Marcus D. — London</div><p class="review-text">Purchased this as a gift and was so captivated I ordered one for myself. Genuinely the finest fragrance I have worn in fifteen years.</p></div>
+    <div class="review-item"><div class="stars">★★★★☆</div><div class="review-name">Leila H. — Tehran</div><p class="review-text">Rich, complex, and beautifully layered. The base notes are especially impressive — they evolve on skin in the most elegant way.</p></div>
+  </div>
+  <!-- Related -->
+  <div style="padding:0 4rem 2rem;"><span class="section-label">Continue Exploring</span><h2 style="font-family:var(--font-serif);font-size:2rem;font-weight:300;color:var(--white);">You May Also <em style="color:var(--gold);font-style:italic;">Love</em></h2></div>
+  <div class="related-grid" id="relatedGrid"></div>
+  <div class="footer-bottom" style="margin-top:4rem;border-top:1px solid var(--border);"><p>© 2026 LUXORÉ. All rights reserved.</p><p onclick="showPage('home')" style="cursor:pointer;color:var(--gold);font-size:0.65rem;letter-spacing:0.2em;">← Back to Home</p></div>
+</div>
+
+<!-- ==================== ABOUT PAGE ==================== -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div>
+      <span class="section-label">Our Heritage</span>
+      <h1 class="section-title">The Art of<br><em>Invisible Luxury</em></h1>
+      <div class="gold-line-center"></div>
+      <p style="font-size:0.9rem;line-height:1.9;color:rgba(250,250,248,0.7);max-width:600px;margin:0 auto;">LUXORÉ was not built. It was composed — note by note, year by year — by perfumers who believed that the greatest luxury is one you cannot see.</p>
+    </div>
+  </div>
+
+  <div class="about-story">
+    <div class="about-visual">
+      <svg width="260" height="360" viewBox="0 0 260 360">
+        <text x="130" y="200" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="120" fill="#C9A84C" opacity="0.06" font-style="italic">L</text>
+        <circle cx="130" cy="180" r="100" stroke="#C9A84C" stroke-width="0.5" opacity="0.15" fill="none"/>
+        <circle cx="130" cy="180" r="70" stroke="#C9A84C" stroke-width="0.3" opacity="0.1" fill="none"/>
+        <text x="130" y="175" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="32" fill="#C9A84C" opacity="0.5" font-style="italic">LUXORÉ</text>
+        <text x="130" y="195" text-anchor="middle" font-family="'Jost',sans-serif" font-size="8" fill="#C9A84C" opacity="0.3" letter-spacing="5">EST. 2010</text>
+        <line x1="80" y1="220" x2="180" y2="220" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+        <text x="130" y="238" text-anchor="middle" font-family="'Jost',sans-serif" font-size="7" fill="#C9A84C" opacity="0.3" letter-spacing="3">GRASSE · PARIS · DUBAI</text>
+      </svg>
+    </div>
+    <div>
+      <span class="section-label">The Origin</span>
+      <h2 class="section-title">From Grasse,<br>with <em>Love</em></h2>
+      <div class="gold-line"></div>
+      <p class="about-p">LUXORÉ was born in 2026 in India, the perfume capital of the world. Our founder, a  perfumer, returned from years of study in the ateliers of Parisian haute parfumerie with one ambition: to create fragrances that felt genuinely rare.</p>
+      <p class="about-p">We work with fewer than 20 ingredient houses worldwide, sourcing only what meets our uncompromising standards — Bulgarian rose absolute, Laotian oud, Indian sandalwood, Haitian vetiver.</p>
+      <p class="about-p">Each fragrance takes between 18 months and 4 years to develop. There is no shortcut to beauty.</p>
+    </div>
+  </div>
+
+  <div class="craft-section">
+    <div style="text-align:center;">
+      <span class="section-label">The Difference</span>
+      <h2 class="section-title">Our <em>Pillars</em></h2>
+      <div class="gold-line-center"></div>
+    </div>
+    <div class="craft-grid">
+      <div class="craft-card">
+        <div class="craft-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#C9A84C" stroke-width="1"/><path d="M12 6v6l4 2" stroke="#C9A84C" stroke-width="1"/></svg>
+        </div>
+        <h3 class="craft-title">Time & Patience</h3>
+        <p class="craft-text">We do not rush. Our fragrances mature in our laboratory for months before they are approved. Excellence is never hasty.</p>
+      </div>
+      <div class="craft-card">
+        <div class="craft-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" stroke="#C9A84C" stroke-width="1" fill="none"/></svg>
+        </div>
+        <h3 class="craft-title">Rare Ingredients</h3>
+        <p class="craft-text">From wild-harvested ambergris to ethically sourced Indian sandalwood — we use only what nature's finest terroirs have to offer.</p>
+      </div>
+      <div class="craft-card">
+        <div class="craft-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#C9A84C" stroke-width="1"/></svg>
+        </div>
+        <h3 class="craft-title">Master Composition</h3>
+        <p class="craft-text">Every LUXORÉ fragrance is the work of a named master perfumer, with decades of expertise and an unwavering artistic vision.</p>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding:8rem 4rem;text-align:center;background:radial-gradient(ellipse at center,rgba(201,168,76,0.06) 0%,transparent 70%);">
+    <span class="section-label">Join the Maison</span>
+    <h2 class="section-title">Ready to Find Your<br><em>Signature?</em></h2>
+    <div class="gold-line-center"></div>
+    <p style="color:var(--muted);font-size:0.85rem;max-width:500px;margin:0 auto 3rem;line-height:1.8;">Explore our full collection and discover the fragrance that speaks to who you are — and who you wish to become.</p>
+    <button class="btn-gold" onclick="showPage('shop')">Explore the Collection</button>
+  </section>
+
+  <footer>
+    <div><span class="footer-brand">LUXORÉ</span><p class="footer-desc">A maison dedicated to the art of rare fragrance.</p></div>
+    <div><span class="footer-col-title">Navigation</span><ul class="footer-links"><li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('shop')">Collection</a></li><li><a onclick="showPage('contact')">Contact</a></li></ul></div>
+    <div></div><div></div>
+  </footer>
+  <div class="footer-bottom"><p>© 2026 LUXORÉ. All rights reserved.</p></div>
+</div>
+
+<!-- ==================== CONTACT PAGE ==================== -->
+<div class="page" id="page-contact">
+  <div class="contact-layout">
+    <div class="contact-info">
+      <span class="section-label">Reach Us</span>
+      <h1 class="section-title">Let's <em>Connect</em></h1>
+      <div class="gold-line"></div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.9;margin-bottom:3rem;">Whether you seek a bespoke commission, a gifting consultation, or simply wish to know more about our maison — we are here.</p>
+      <div class="contact-item"><span class="contact-item-label">Address</span><div class="contact-item-val" style="font-size:0.9rem;line-height:1.7;color:rgba(250,250,248,0.7);"> LUXOREÉ<br>Jaipur, Rajasthan<br></div></div>
+      <div class="contact-item"><span class="contact-item-label">Email</span><div class="contact-item-val"></div></div>
+      <div class="contact-item"><span class="contact-item-label">Phone</span><div class="contact-item-val">+91 8619499422</div></div>
+      <div class="contact-item"><span class="contact-item-label">Hours</span><div class="contact-item-val" style="font-size:0.9rem;line-height:1.7;color:rgba(250,250,248,0.7);">Monday – Friday: 10h – 18h<br>Saturday: 10h – 15h</div></div>
+      <div style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);">
+        <span style="font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem;">Follow the Maison</span>
+        <div style="display:flex;gap:1rem;">
+          <span style="font-size:0.7rem;letter-spacing:0.2em;color:var(--muted);cursor:pointer;transition:color 0.3s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#999'">Instagram</span>
+          <span style="font-size:0.7rem;letter-spacing:0.2em;color:var(--muted);">·</span>
+          <span style="font-size:0.7rem;letter-spacing:0.2em;color:var(--muted);cursor:pointer;transition:color 0.3s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#999'">Pinterest</span>
+          <span style="font-size:0.7rem;letter-spacing:0.2em;color:var(--muted);">·</span>
+          <span style="font-size:0.7rem;letter-spacing:0.2em;color:var(--muted);cursor:pointer;transition:color 0.3s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#999'">LinkedIn</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span style="font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:2rem;">Send a Message</span>
+      <div class="contact-form">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="Arjun"></div>
+          <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Mehta"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="arjun@example.com"></div>
+        <div class="form-group"><label class="form-label">Subject</label>
+          <select class="form-input" style="cursor:pointer;">
+            <option value="" style="background:var(--surface);">Select subject</option>
+            <option style="background:var(--surface);">General Enquiry</option>
+            <option style="background:var(--surface);">Bespoke Commission</option>
+            <option style="background:var(--surface);">Gifting Consultation</option>
+            <option style="background:var(--surface);">Press & Collaboration</option>
+            <option style="background:var(--surface);">Order Support</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell us how we may assist you..."></textarea></div>
+        <button class="submit-btn" onclick="submitContact()">Send Message</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div><span class="footer-brand">LUXORÉ</span><p class="footer-desc">A maison dedicated to the art of rare fragrance.</p></div>
+    <div><span class="footer-col-title">Navigation</span><ul class="footer-links"><li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('shop')">Collection</a></li><li><a onclick="showPage('about')">Our Story</a></li></ul></div>
+    <div></div><div></div>
+  </footer>
+  <div class="footer-bottom"><p>© 2026 LUXORÉ. All rights reserved.</p></div>
+</div>
+
+<!-- CART NOTIFICATION -->
+<div class="cart-notif" id="cartNotif">Added to cart ✦</div>
+
+<script>
+const products=[
+  {id:0,name:'Noir Absolu',sub:'The Shadow Within',tag:'Eau de Parfum',price:'₹8,500',desc:'A mesmerising journey into the heart of darkness. Noir Absolu opens with sharp black pepper and bergamot, before revealing its soul: a labyrinthine accord of leather, dark incense, and woods that seem ancient beyond reckoning.',top:'Black Pepper, Bergamot, Cardamom',heart:'Leather, Dark Rose, Oud Smoke',base:'Ambergris, Vetiver, Black Musk, Cedarwood',cat:'edp woody',filter:'woody edp'},
+  {id:1,name:'Rose Éternelle',sub:'Love Without End',tag:'Eau de Parfum',price:'₹9,200',desc:'A love letter rendered in fragrance. The Bulgarian rose at the heart of this composition was harvested at dawn — the only hour when its absolute reaches its fullest, most emotional expression. Eternally romantic, never obvious.',top:'Pink Pepper, Bergamot, Lychee',heart:'Bulgarian Rose, Ylang Ylang, Jasmine',base:'White Musk, Sandalwood, Ambrette',cat:'edp floral',filter:'floral edp'},
+  {id:2,name:'Oud Impérial',sub:'The Royal Wood',tag:'Extrait de Parfum',price:'₹14,000',desc:'An ode to the most precious material in all of perfumery. The Laotian oud used in Oud Impérial is aged for twelve years — resinous, smoky, and complex in ways that unfold across an entire day on skin.',top:'Saffron, Rose Absolute, Nutmeg',heart:'Aged Laotian Oud, Incense, Geranium',base:'Royal Sandalwood, Amber, Musk, Castoreum',cat:'extrait oriental',filter:'oriental extrait'},
+  {id:3,name:'Blanc de Nuit',sub:'White Night',tag:'Eau de Parfum',price:'₹7,800',desc:'Luminous, clean, and hauntingly beautiful. A fragrance for those who find elegance in silence.',top:'White Bergamot, Neroli, Aldehydes',heart:'White Iris, Magnolia, Muguet',base:'White Musk, Blonde Woods, Cashmere',cat:'edp floral',filter:'floral edp'},
+  {id:4,name:'Ambre Solaire',sub:'Golden Light',tag:'Eau de Parfum',price:'₹10,500',desc:'The warmth of the Mediterranean sun, bottled. A radiant amber fragrance that glows from within.',top:'Blood Orange, Cardamom, Grapefruit',heart:'Golden Amber, Honey, Jasmine',base:'Vanilla, Benzoin, Tonka Bean',cat:'edp oriental',filter:'oriental edp'},
+  {id:5,name:'Forêt Mystique',sub:'The Enchanted Forest',tag:'Extrait de Parfum',price:'₹12,500',desc:'Deep in a forest where no light reaches, ancient trees breathe. This is their fragrance.',top:'Green Moss, Fir Needle, Aldehydes',heart:'Dark Cypress, Oakmoss, Violet Leaf',base:'Patchouli, Birch Tar, Dark Vetiver',cat:'extrait woody',filter:'woody extrait'},
+];
+
+let cart=0;
+let currentProduct=0;
+let currentFilter='all';
+
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const navEl=document.getElementById('nav-'+page);
+  if(navEl)navEl.classList.add('active');
+  window.scrollTo(0,0);
+  if(page==='shop')renderShop();
+}
+
+function renderShop(){
+  const grid=document.getElementById('shopGrid');
+  let filtered=currentFilter==='all'?products:products.filter(p=>p.filter&&p.filter.includes(currentFilter));
+  grid.innerHTML=filtered.map(p=>`
+    <div class="product-card" onclick="openQuickView(${p.id})">
+      <div class="product-img">
+        ${bottleSVG(p.id)}
+      </div>
+      <div class="product-info">
+        <div class="product-tag">${p.tag}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.sub}</div>
+        <div class="product-footer">
+          <span class="product-price">${p.price}</span>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('${p.name}')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function bottleSVG(id){
+  const colors=['#C9A84C','#C9A84C','#C9A84C','#C9A84C','#C9A84C','#C9A84C'];
+  const c=colors[id%colors.length];
+  const shapes=[
+    `<svg width="80" height="180" viewBox="0 0 80 180"><rect x="26" y="0" width="28" height="7" rx="3" fill="${c}" opacity="0.65"/><rect x="20" y="7" width="40" height="17" rx="7" fill="${c}" opacity="0.35"/><rect x="4" y="24" width="72" height="130" rx="5" fill="${c}" opacity="0.1"/><rect x="5" y="25" width="70" height="128" rx="4" fill="none" stroke="${c}" stroke-width="1.2" opacity="0.35"/><text x="40" y="92" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="9" fill="${c}" font-style="italic" opacity="0.7">NOIR</text><text x="40" y="105" text-anchor="middle" font-family="Jost,sans-serif" font-size="5" fill="${c}" opacity="0.4" letter-spacing="2">LUXORÉ</text><rect x="11" y="154" width="58" height="18" rx="2" fill="${c}" opacity="0.07"/></svg>`,
+    `<svg width="70" height="170" viewBox="0 0 70 170"><rect x="22" y="0" width="26" height="6" rx="3" fill="${c}" opacity="0.6"/><rect x="16" y="6" width="38" height="16" rx="6" fill="${c}" opacity="0.3"/><rect x="2" y="22" width="66" height="125" rx="33" fill="${c}" opacity="0.09"/><rect x="3" y="23" width="64" height="123" rx="32" fill="none" stroke="${c}" stroke-width="1" opacity="0.3"/><text x="35" y="87" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="9" fill="${c}" font-style="italic" opacity="0.65">ROSE</text><rect x="13" y="148" width="44" height="14" rx="2" fill="${c}" opacity="0.06"/></svg>`,
+    `<svg width="65" height="165" viewBox="0 0 65 165"><rect x="20" y="0" width="25" height="6" rx="3" fill="${c}" opacity="0.65"/><rect x="14" y="6" width="37" height="14" rx="5" fill="${c}" opacity="0.32"/><rect x="2" y="20" width="61" height="122" rx="4" fill="${c}" opacity="0.1"/><rect x="3" y="21" width="59" height="120" rx="3" fill="none" stroke="${c}" stroke-width="1" opacity="0.33"/><text x="32" y="83" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" fill="${c}" font-style="italic" opacity="0.7">OUD</text><rect x="9" y="142" width="47" height="14" rx="2" fill="${c}" opacity="0.07"/></svg>`,
+    `<svg width="75" height="175" viewBox="0 0 75 175"><rect x="24" y="0" width="27" height="7" rx="3" fill="${c}" opacity="0.55"/><rect x="18" y="7" width="39" height="16" rx="7" fill="${c}" opacity="0.28"/><rect x="3" y="23" width="69" height="128" rx="34" fill="${c}" opacity="0.08"/><rect x="4" y="24" width="67" height="126" rx="33" fill="none" stroke="${c}" stroke-width="0.9" opacity="0.28"/><text x="37" y="89" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="7" fill="${c}" font-style="italic" opacity="0.6">BLANC</text><rect x="14" y="152" width="47" height="14" rx="2" fill="${c}" opacity="0.06"/></svg>`,
+    `<svg width="72" height="168" viewBox="0 0 72 168"><rect x="23" y="0" width="26" height="7" rx="3" fill="${c}" opacity="0.6"/><rect x="17" y="7" width="38" height="15" rx="6" fill="${c}" opacity="0.32"/><rect x="3" y="22" width="66" height="124" rx="5" fill="${c}" opacity="0.1"/><rect x="4" y="23" width="64" height="122" rx="4" fill="none" stroke="${c}" stroke-width="1" opacity="0.32"/><text x="36" y="86" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="7" fill="${c}" font-style="italic" opacity="0.65">AMBRE</text><rect x="10" y="146" width="52" height="14" rx="2" fill="${c}" opacity="0.07"/></svg>`,
+    `<svg width="68" height="162" viewBox="0 0 68 162"><rect x="21" y="0" width="26" height="6" rx="3" fill="${c}" opacity="0.55"/><rect x="15" y="6" width="38" height="15" rx="5" fill="${c}" opacity="0.3"/><rect x="2" y="21" width="64" height="120" rx="5" fill="${c}" opacity="0.09"/><rect x="3" y="22" width="62" height="118" rx="4" fill="none" stroke="${c}" stroke-width="1" opacity="0.3"/><text x="34" y="83" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="7" fill="${c}" font-style="italic" opacity="0.62">FORÊT</text><rect x="9" y="141" width="50" height="13" rx="2" fill="${c}" opacity="0.06"/></svg>`
+  ];
+  return shapes[id%shapes.length];
+}
+
+let qvCurrentProduct=null;
+function openQuickView(id){
+  const p=products[id];
+  qvCurrentProduct=id;
+  document.getElementById('qvTag').textContent=p.tag;
+  document.getElementById('qvName').textContent=p.name;
+  document.getElementById('qvSub').textContent=p.sub;
+  document.getElementById('qvDesc').textContent=p.desc.substring(0,180)+'...';
+  document.getElementById('qvPrice').textContent=p.price;
+  document.getElementById('qvImg').innerHTML=`<div style="padding:3rem;">${bottleSVG(id)}</div>`;
+  document.getElementById('qvAddBtn').onclick=()=>{addToCart(p.name);};
+  document.getElementById('quickViewOverlay').classList.add('open');
+}
+function closeQuickView(){document.getElementById('quickViewOverlay').classList.remove('open');}
+function viewFullProduct(){closeQuickView();showProductDetail(qvCurrentProduct);}
+
+function showProductDetail(id){
+  currentProduct=id;
+  const p=products[id];
+  document.getElementById('pdName').textContent=p.name;
+  document.getElementById('pdSub').textContent=p.sub;
+  document.getElementById('pdPrice').textContent=p.price;
+  document.getElementById('pdDesc').textContent=p.desc;
+  document.getElementById('pdTop').textContent=p.top;
+  document.getElementById('pdHeart').textContent=p.heart;
+  document.getElementById('pdBase').textContent=p.base;
+  document.getElementById('pdImg').innerHTML=`<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">${bottleSVG(id).replace('width="','width="').replace(/width="(\d+)"/,w=>{let n=parseInt(w.match(/\d+/)[0]);return `width="${n*2}"`}).replace(/height="(\d+)"/,h=>{let n=parseInt(h.match(/\d+/)[0]);return `height="${n*2}"`}).replace(/viewBox="0 0 (\d+) (\d+)"/,(_,w,h)=>`viewBox="0 0 ${w} ${h}"`)}</div>`;
+  document.getElementById('pdAddBtn').onclick=()=>addToCart(p.name);
+  const related=products.filter((_,i)=>i!==id).slice(0,3);
+  document.getElementById('relatedGrid').innerHTML=related.map(rp=>`
+    <div class="product-card" onclick="showProductDetail(${rp.id})">
+      <div class="product-img">${bottleSVG(rp.id)}</div>
+      <div class="product-info">
+        <div class="product-tag">${rp.tag}</div>
+        <div class="product-name">${rp.name}</div>
+        <div class="product-footer"><span class="product-price">${rp.price}</span><button class="add-btn" onclick="event.stopPropagation();addToCart('${rp.name}')">Add</button></div>
+      </div>
+    </div>
+  `).join('');
+  showPage('product');
+}
+
+function filterProducts(btn,filter){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter=filter;
+  renderShop();
+}
+
+function selectSize(btn){
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function addToCart(name){
+  cart++;
+  document.getElementById('cartCount').textContent=cart;
+  const notif=document.getElementById('cartNotif');
+  notif.textContent=name+' added ✦';
+  notif.classList.add('show');
+  setTimeout(()=>notif.classList.remove('show'),2500);
+}
+
+function toggleCart(){
+  const notif=document.getElementById('cartNotif');
+  notif.textContent=cart===0?'Your cart is empty':''+cart+' item(s) in cart';
+  notif.classList.add('show');
+  setTimeout(()=>notif.classList.remove('show'),2000);
+}
+
+function subscribeNewsletter(){
+  const email=document.getElementById('emailInput').value;
+  if(email&&email.includes('@')){
+    const notif=document.getElementById('cartNotif');
+    notif.textContent='Welcome to the Maison ✦';
+    notif.classList.add('show');
+    setTimeout(()=>notif.classList.remove('show'),2500);
+    document.getElementById('emailInput').value='';
+  }
+}
+
+function submitContact(){
+  const notif=document.getElementById('cartNotif');
+  notif.textContent='Message sent. Merci ✦';
+  notif.classList.add('show');
+  setTimeout(()=>notif.classList.remove('show'),2500);
+}
+
+// Close quick view on overlay click
+document.getElementById('quickViewOverlay').addEventListener('click',function(e){
+  if(e.target===this)closeQuickView();
+});
+
+// Smooth nav highlight on scroll (home page)
+window.addEventListener('scroll',function(){
+  const nav=document.getElementById('mainNav');
+  if(window.scrollY>50){nav.style.padding='1rem 4rem';}
+  else{nav.style.padding='1.5rem 4rem';}
+});
+</script>
+</body>
+</html>
