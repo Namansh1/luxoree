@@ -1,69 +1,89 @@
 import React, { useState } from "react";
-import { fragrances, sets } from "../Data/Products";
+import { fragrances } from "../Data/Products";
+import { sets } from "../Data/sets";
 
 const SetBuilder = () => {
   const [selectedSet, setSelectedSet] = useState(sets[0]);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selected, setSelected] = useState([]);
 
-  const toggleItem = (item) => {
-    if (selectedItems.find((i) => i.id === item.id)) {
-      setSelectedItems(selectedItems.filter((i) => i.id !== item.id));
+  const toggleSelect = (item) => {
+    const exists = selected.find((i) => i.id === item.id);
+
+    if (exists) {
+      setSelected(selected.filter((i) => i.id !== item.id));
     } else {
-      if (selectedItems.length < selectedSet.maxSelect) {
-        setSelectedItems([...selectedItems, item]);
+      if (selected.length < selectedSet.maxSelect) {
+        setSelected([...selected, item]);
       }
     }
   };
 
   return (
-    <div className="p-10 bg-black text-white min-h-screen">
+    <div className="min-h-screen bg-black text-white p-10">
 
-      <h1 className="text-3xl mb-6 font-serif">
+      <h1 className="text-3xl font-serif mb-6">
         Build Your Luxury Set
       </h1>
 
-      {/* SET SELECTOR */}
-      <div className="flex gap-4 mb-10">
+      {/* SET SWITCH */}
+      <div className="flex gap-4 mb-8">
         {sets.map((s) => (
           <button
             key={s.id}
             onClick={() => {
               setSelectedSet(s);
-              setSelectedItems([]);
+              setSelected([]);
             }}
-            className="border px-4 py-2"
+            className="px-4 py-2 border border-gray-600"
           >
             {s.name}
           </button>
         ))}
       </div>
 
-      {/* FRAGRANCES */}
-      <div className="grid grid-cols-3 gap-6">
+      <p className="mb-4 text-gray-400">
+        Select {selectedSet.maxSelect} fragrance(s)
+      </p>
+
+      {/* FRAGRANCE GRID */}
+      <div className="grid grid-cols-4 gap-6">
+
         {fragrances.map((f) => (
           <div
             key={f.id}
-            onClick={() => toggleItem(f)}
-            className={`p-4 border cursor-pointer ${
-              selectedItems.find((i) => i.id === f.id)
-                ? "border-gold"
+            onClick={() => toggleSelect(f)}
+            className={`p-3 border cursor-pointer transition ${
+              selected.find((i) => i.id === f.id)
+                ? "border-yellow-400"
                 : "border-gray-700"
             }`}
           >
-            <img src={f.image} className="h-40 object-cover" />
+            <img src={f.image} className="h-32 w-full object-cover" />
             <h3 className="mt-2">{f.name}</h3>
           </div>
         ))}
+
       </div>
 
       {/* SUMMARY */}
       <div className="mt-10">
-        <h2>Selected: {selectedItems.length}/{selectedSet.maxSelect}</h2>
+        <h2 className="text-lg">
+          Selected: {selected.length}/{selectedSet.maxSelect}
+        </h2>
+
+        <div className="flex gap-4 mt-4">
+          {selected.map((s) => (
+            <span key={s.id} className="px-3 py-1 border">
+              {s.name}
+            </span>
+          ))}
+        </div>
 
         <button
-          className="mt-4 px-6 py-2 bg-white text-black"
+          disabled={selected.length !== selectedSet.maxSelect}
+          className="mt-6 px-6 py-3 bg-yellow-500 text-black disabled:opacity-40"
         >
-          Add Custom Set - ₹{selectedSet.basePrice}
+          Buy Now ₹{selectedSet.price}
         </button>
       </div>
 
