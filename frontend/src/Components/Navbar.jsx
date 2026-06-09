@@ -12,6 +12,7 @@ export default function Navbar() {
       </h2>
 
       <div>
+        <Link to="/build-set">Build Set</Link>
         <Link to="/">Home</Link>
         <Link to="/shop">Shop</Link>
         <Link to="/cart">Cart</Link>
