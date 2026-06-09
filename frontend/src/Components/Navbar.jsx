@@ -1,22 +1,57 @@
-import { Link, useNavigate } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
-export default function Navbar() {
-  const navigate = useNavigate()
-
+const Navbar = () => {
   return (
-    <div className="nav">
-      
-      {/* LOGO CLICK FIX */}
-      <h2 onClick={() => navigate("/")} className="logo">
-        LUXOREE
-      </h2>
+    <nav className="flex items-center justify-between px-10 py-5 bg-black text-white border-b border-gray-800">
 
-      <div>
-        <Link to="/build-set">Build Set</Link>
-        <Link to="/">Home</Link>
-        <Link to="/shop">Shop</Link>
-        <Link to="/cart">Cart</Link>
+      {/* BRAND */}
+      <h1 className="text-2xl font-serif tracking-widest text-[#c8a96a]">
+        LUXOREE
+      </h1>
+
+      {/* NAV LINKS */}
+      <div className="flex gap-8 text-sm uppercase tracking-wide">
+
+        <Link
+          to="/"
+          className="hover:text-[#c8a96a] transition duration-300"
+        >
+          Home
+        </Link>
+
+        <Link
+          to="/products"
+          className="hover:text-[#c8a96a] transition duration-300"
+        >
+          Shop
+        </Link>
+
+        <Link
+          to="/build-set"
+          className="hover:text-[#c8a96a] transition duration-300"
+        >
+          Build Set
+        </Link>
+
+        <Link
+          to="/cart"
+          className="hover:text-[#c8a96a] transition duration-300"
+        >
+          Cart
+        </Link>
+
       </div>
-    </div>
-  )
-}
+
+      {/* CTA BUTTON */}
+      <Link to="/products">
+        <button className="border border-[#c8a96a] px-4 py-2 text-[#c8a96a] hover:bg-[#c8a96a] hover:text-black transition duration-300">
+          Shop Now
+        </button>
+      </Link>
+
+    </nav>
+  );
+};
+
+export default Navbar;
