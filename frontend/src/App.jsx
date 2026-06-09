@@ -6,7 +6,7 @@ import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import CartProvider from "./Context/CartContext";
-
+import SetBuilder from "../pages/SetBuilder";
 export default function App() {
   return (
     <CartProvider>
