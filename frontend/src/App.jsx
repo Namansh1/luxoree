@@ -14,6 +14,7 @@ export default function App() {
         <Navbar />
 
         <Routes>
+          <Route path="/build-set" element={<SetBuilder />} />
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
